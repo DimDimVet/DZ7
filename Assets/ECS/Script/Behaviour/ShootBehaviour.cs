@@ -13,6 +13,7 @@ public class ShootBehaviour : MonoBehaviour, IBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform outBullet;
+    [SerializeField] private ParticleSystem gunExitParticle;//система частиц
     public float ShootDelay;
     private float shootTime = float.MinValue;
 
@@ -46,6 +47,7 @@ public class ShootBehaviour : MonoBehaviour, IBehaviour
                 }
 
                 Instantiate(bullet, outBullet.position, outBullet.rotation);
+                gunExitParticle.Play();
             }
             //
             target = HealtComponent.transform.position;//Player запишем в цель

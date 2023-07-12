@@ -10,6 +10,7 @@ public class ShootComponent : MonoBehaviour, IShootComponent
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform outBullet;
     [SerializeField] private Text text;
+    [SerializeField] private ParticleSystem gunExitParticle;//система частиц
     public bool IsModeBull = false;
     //соберем в лист стороние скрипты
     public List<MonoBehaviour> CollisionAction = new List<MonoBehaviour>();
@@ -50,6 +51,7 @@ public class ShootComponent : MonoBehaviour, IShootComponent
         }
 
         Instantiate(bullet, outBullet.position, outBullet.rotation);
+        gunExitParticle.Play();
         //static
         Statistic.ShootCount++;
         text.text = $"Bullet = {Statistic.ShootCount}";
