@@ -14,6 +14,7 @@ public class UserInputSystem : ComponentSystem
     private float2 moveInput;
     private float shootInput;
     private float pullInput;
+    private float modeInput;
 
     protected override void OnCreate()
     {
@@ -41,6 +42,10 @@ public class UserInputSystem : ComponentSystem
         inputAction.Map.Pull.performed += context => { pullInput = context.ReadValue<float>(); };
         inputAction.Map.Pull.started += context => { pullInput = context.ReadValue<float>(); };
         inputAction.Map.Pull.canceled += context => { pullInput = context.ReadValue<float>(); };
+
+        inputAction.Map.ModePlayer.performed += context => { modeInput = context.ReadValue<float>(); };
+        inputAction.Map.ModePlayer.started += context => { modeInput = context.ReadValue<float>(); };
+        inputAction.Map.ModePlayer.canceled += context => { modeInput = context.ReadValue<float>(); };
         //запустим 
         inputAction.Enable();
 
@@ -61,6 +66,7 @@ public class UserInputSystem : ComponentSystem
                 inputData.Move = moveInput;
                 inputData.Shoot = shootInput;
                 inputData.Pull = pullInput;
+                inputData.Mode = modeInput;
             }
             );
     }

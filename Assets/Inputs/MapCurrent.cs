@@ -53,6 +53,15 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ModePlayer"",
+                    ""type"": ""Button"",
+                    ""id"": ""0466814e-397a-4e1a-a561-b245609d0a1f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pull"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6aeb9e5a-db15-4b0c-881d-06c701c239a1"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ModePlayer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -365,6 +385,17 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
                     ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3c21713-19aa-4f68-90bb-8929cf40cf8c"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -376,6 +407,7 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
         m_Map_WASD = m_Map.FindAction("WASD", throwIfNotFound: true);
         m_Map_Shoot = m_Map.FindAction("Shoot", throwIfNotFound: true);
         m_Map_Pull = m_Map.FindAction("Pull", throwIfNotFound: true);
+        m_Map_ModePlayer = m_Map.FindAction("ModePlayer", throwIfNotFound: true);
         // UIMap
         m_UIMap = asset.FindActionMap("UIMap", throwIfNotFound: true);
         m_UIMap_WASD = m_UIMap.FindAction("WASD", throwIfNotFound: true);
@@ -445,6 +477,7 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
     private readonly InputAction m_Map_WASD;
     private readonly InputAction m_Map_Shoot;
     private readonly InputAction m_Map_Pull;
+    private readonly InputAction m_Map_ModePlayer;
     public struct MapActions
     {
         private @MapCurrent m_Wrapper;
@@ -452,6 +485,7 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
         public InputAction @WASD => m_Wrapper.m_Map_WASD;
         public InputAction @Shoot => m_Wrapper.m_Map_Shoot;
         public InputAction @Pull => m_Wrapper.m_Map_Pull;
+        public InputAction @ModePlayer => m_Wrapper.m_Map_ModePlayer;
         public InputActionMap Get() { return m_Wrapper.m_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -470,6 +504,9 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
             @Pull.started += instance.OnPull;
             @Pull.performed += instance.OnPull;
             @Pull.canceled += instance.OnPull;
+            @ModePlayer.started += instance.OnModePlayer;
+            @ModePlayer.performed += instance.OnModePlayer;
+            @ModePlayer.canceled += instance.OnModePlayer;
         }
 
         private void UnregisterCallbacks(IMapActions instance)
@@ -483,6 +520,9 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
             @Pull.started -= instance.OnPull;
             @Pull.performed -= instance.OnPull;
             @Pull.canceled -= instance.OnPull;
+            @ModePlayer.started -= instance.OnModePlayer;
+            @ModePlayer.performed -= instance.OnModePlayer;
+            @ModePlayer.canceled -= instance.OnModePlayer;
         }
 
         public void RemoveCallbacks(IMapActions instance)
@@ -567,6 +607,7 @@ public partial class @MapCurrent: IInputActionCollection2, IDisposable
         void OnWASD(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnPull(InputAction.CallbackContext context);
+        void OnModePlayer(InputAction.CallbackContext context);
     }
     public interface IUIMapActions
     {
