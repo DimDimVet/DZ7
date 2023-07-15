@@ -21,6 +21,7 @@ public class UserModeSystem : ComponentSystem
                 if (inputData.Mode > 0 && userInput.ModeAction != null && userInput.ModeAction is IModeComponent mode)
                 {
                     mode.Mode();
+
                 }
             }
             );

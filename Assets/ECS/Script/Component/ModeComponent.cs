@@ -3,24 +3,21 @@ using UnityEngine;
 public class ModeComponent : MonoBehaviour, IModeComponent
 {
     [SerializeField] private Renderer render;
-
-    private float temp=1f;
-    private bool isStop = false;
-
+    public float ModeDelay = 1f;
+    private float modeTime = float.MinValue;
     public void Mode()
     {
-//на однократсность нажатия
-        if (isStop)
+        if (Time.time < modeTime + ModeDelay)
         {
-            isStop = false;
             return;
         }
         else
         {
-            isStop = true;
+            modeTime = Time.time;
         }
 
         StMash();
+
     }
 
     private void StMash()
